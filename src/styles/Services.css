@@ -1,0 +1,103 @@
+/* Services container */
+.services-container {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+}
+
+/* Services Cards Grid */
+.services-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Individual Service Card */
+.services-card {
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Left side image */
+.card-image {
+  width: 60%;
+  object-fit: cover;
+  height: 100%;
+}
+
+/* Right side content */
+.card-content-wrapper {
+  width: 40%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+/* Title Styling */
+.title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* File Upload Styling */
+input[type="file"] {
+  display: none;
+}
+
+.file-upload-label {
+  display: inline-block;
+  background-color: #90ee90;
+  color: black;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.file-upload-label:hover {
+  background-color: #7ccd7c;
+}
+
+/* Learn More Link */
+.learn-more {
+  margin-top: 8px;
+  color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.learn-more:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 650px) {
+  .services-card {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 200px;
+  }
+
+  .card-content-wrapper {
+    width: 100%;
+    text-align: center;
+  }
+}

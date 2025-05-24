@@ -1,0 +1,56 @@
+.hospitals-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.google-map {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.status-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #90ee90; /* Light green */
+  padding: 8px 12px;
+  border-radius: 4px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  gap: 5px;
+}
+
+.control-btn {
+  background: #90ee90; /* Light green */
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+.marker {
+  color: #FF5722;
+}
