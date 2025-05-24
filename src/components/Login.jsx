@@ -8,6 +8,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "../styles/Login.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
 const Login = () => {
   const { setIsAuthenticated, setUser } = useContext(Context);
   const navigateTo = useNavigate();
@@ -21,7 +23,7 @@ const Login = () => {
 
   const handleLogin = async (data) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/v1/user/login", data, {
+      const res = await axios.post(`${API_BASE_URL}/api/v1/user/login`, data, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

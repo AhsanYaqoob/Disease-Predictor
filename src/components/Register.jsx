@@ -5,17 +5,18 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "../styles/Register.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
 const Register = () => {
   const navigateTo = useNavigate();
 
-  // Set default value here
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      verificationMethod: "email", // 👈 Default selected radio value
+      verificationMethod: "email",
     },
   });
 
@@ -24,7 +25,7 @@ const Register = () => {
       data.phone = `+92${data.phone}`;
 
       const response = await axios.post(
-        "http://localhost:5000/api/v1/user/register",
+        `${API_BASE_URL}/api/v1/user/register`,
         data,
         {
           withCredentials: true,
@@ -75,17 +76,6 @@ const Register = () => {
               />
               Email
             </label>
-
-            {/* You can uncomment this if you want more options */}
-            {/* <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <input
-                type="radio"
-                name="verificationMethod"
-                value="phone"
-                {...register("verificationMethod")}
-              />
-              Phone
-            </label> */}
           </div>
         </div>
 
