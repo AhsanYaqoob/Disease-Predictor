@@ -1,8 +1,8 @@
 import { createContext, StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+import { HashRouter } from "react-router-dom"; // ← Import HashRouter
 
-// Create a Context for authentication state
 export const Context = createContext({
   isAuthenticated: false,
   setIsAuthenticated: () => {},
@@ -10,24 +10,24 @@ export const Context = createContext({
   setUser: () => {},
 });
 
-// Context Provider Component
 const AppWrapper = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
   return (
     <Context.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
-      <App />
+      <HashRouter>
+        <App />
+      </HashRouter>
     </Context.Provider>
   );
 };
 
 const container = document.getElementById("root");
 
-// Ensure createRoot is only called once
 if (!container.__reactRoot) {
   const root = createRoot(container);
-  container.__reactRoot = root; // Store root instance to avoid duplication
+  container.__reactRoot = root;
   root.render(
     <StrictMode>
       <AppWrapper />
