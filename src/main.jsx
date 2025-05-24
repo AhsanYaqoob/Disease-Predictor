@@ -1,7 +1,7 @@
-import { createContext, StrictMode, useState } from "react";
+import React, { createContext, StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
-import { HashRouter } from "react-router-dom"; // ← Import HashRouter
 
 export const Context = createContext({
   isAuthenticated: false,
@@ -16,27 +16,18 @@ const AppWrapper = () => {
 
   return (
     <Context.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
-      <HashRouter>
+      <Router>
         <App />
-      </HashRouter>
+      </Router>
     </Context.Provider>
   );
 };
 
 const container = document.getElementById("root");
+const root = createRoot(container);
 
-if (!container.__reactRoot) {
-  const root = createRoot(container);
-  container.__reactRoot = root;
-  root.render(
-    <StrictMode>
-      <AppWrapper />
-    </StrictMode>
-  );
-} else {
-  container.__reactRoot.render(
-    <StrictMode>
-      <AppWrapper />
-    </StrictMode>
-  );
-}
+root.render(
+  <StrictMode>
+    <AppWrapper />
+  </StrictMode>
+);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Context } from "./main";
 import { ToastContainer } from "react-toastify";
@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // Authentication & User Management
 import Login from "./components/Login";
-import Signup from "./components/Register"; // Ensure it's correctly imported
+import Signup from "./components/Register";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import OtpVerification from "./components/OtpVerification";
@@ -45,7 +45,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
+    <>
       <Routes>
         {/* Authentication Routes */}
         <Route path="/" element={<Navigate to="/login" replace />} />
@@ -92,11 +92,10 @@ const App = () => {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <ToastContainer theme="colored" />
-    </Router>
+    </>
   );
 };
 
-// Component to handle Google OAuth callback
 const GoogleCallback = ({ setIsAuthenticated }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -106,12 +105,10 @@ const GoogleCallback = ({ setIsAuthenticated }) => {
     const token = queryParams.get("token");
 
     if (token) {
-      console.log("Token Extracted from URL:", token);
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
       navigate("/home");
     } else {
-      console.error("No Token Found in URL");
       navigate("/login");
     }
   }, [location, navigate, setIsAuthenticated]);
