@@ -12,7 +12,7 @@ import {
   ListItem,
   Box,
 } from "@mui/material";
-
+import liverImage from "../assets/images/liver.jpg";
 const LiverDiseaseCard = () => {
   const fileRef = useRef(null);
   const [message, setMessage] = useState("");
@@ -79,10 +79,10 @@ const LiverDiseaseCard = () => {
   return (
     <Card className="services-card">
       <img
-        className="card-image"
-        src="/images/liver.jpg"
-        alt="Liver Disease"
-      />
+              className="card-image"
+              src={liverImage}
+              alt="Liver Disease Prediction"
+            />
       <div className="card-content-wrapper">
         <Typography className="title" fontWeight="bold">
           Liver Disease Prediction
@@ -191,9 +191,9 @@ const LiverDiseaseCard = () => {
               </Box>
               <Box display="flex" flexDirection="column" alignItems="center">
                 <img
-                  src="/images/liver.jpg"
+                  src={liverImage}
                   alt="Liver"
-                  style={{ width: 200, height: "auto", borderRadius: 4 }}
+                  style={{ width: "200px", height: "auto", borderRadius: "4px" }}
                 />
                 <Button
                   onClick={handleDialogOk}

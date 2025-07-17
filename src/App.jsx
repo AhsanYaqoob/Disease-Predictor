@@ -1,13 +1,14 @@
+// App.jsx
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Context } from "./main";
+import { Context } from "./main";  // Import context from main.jsx
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Authentication & User Management
 import Login from "./components/Login";
-import Signup from "./components/Register";
+import Signup from "./components/Register"; // Ensure it's correctly imported
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import OtpVerification from "./components/OtpVerification";
@@ -24,31 +25,42 @@ import Chatbot from "./components/Chatbot";
 const App = () => {
   const servicesRef = useRef(null);
   const { setIsAuthenticated, setUser } = useContext(Context);
-  const [isAuthenticated, setAuthState] = useState(false);
+  const [isAuthenticated, setAuthState] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) setAuthState(true);
+    if (!token) {
+      setAuthState(false);
+      setLoading(false);
+      return;
+    }
 
     const getUser = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/v1/user/me", { withCredentials: true });
         setUser(res.data.user);
-        setIsAuthenticated(true);
+        setAuthState(true);
       } catch {
         setUser(null);
-        setIsAuthenticated(false);
+        setAuthState(false);
+      } finally {
+        setLoading(false);
       }
     };
 
     getUser();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <>
+    <Router>
       <Routes>
         {/* Authentication Routes */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />} />
         <Route path="/login" element={<Login setIsAuthenticated={setAuthState} />} />
         <Route path="/signup" element={<Signup setIsAuthenticated={setAuthState} />} />
         <Route path="/otp-verification/:email/:phone" element={<OtpVerification />} />
@@ -92,10 +104,11 @@ const App = () => {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <ToastContainer theme="colored" />
-    </>
+    </Router>
   );
 };
 
+// Component to handle Google OAuth callback
 const GoogleCallback = ({ setIsAuthenticated }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -105,10 +118,12 @@ const GoogleCallback = ({ setIsAuthenticated }) => {
     const token = queryParams.get("token");
 
     if (token) {
+      console.log("Token Extracted from URL:", token);
       localStorage.setItem("token", token);
       setIsAuthenticated(true);
       navigate("/home");
     } else {
+      console.error("No Token Found in URL");
       navigate("/login");
     }
   }, [location, navigate, setIsAuthenticated]);

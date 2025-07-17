@@ -12,7 +12,7 @@ import {
   ListItem,
   Box,
 } from "@mui/material";
-
+import dengueImage from "../assets/images/dengue.jpg";
 const DengueCard = () => {
   const fileRef = useRef(null);
   const [message, setMessage] = useState("");
@@ -77,7 +77,7 @@ const DengueCard = () => {
     <Card className="services-card">
       <img
         className="card-image"
-        src="/images/dengue.jpg"
+        src={dengueImage}
         alt="Dengue Prediction"
       />
       <div className="card-content-wrapper">
@@ -184,7 +184,7 @@ const DengueCard = () => {
             </Box>
             <Box display="flex" flexDirection="column" alignItems="center">
               <img
-                src="/images/dengue.jpg"
+               src={dengueImage}
                 alt="Dengue"
                 style={{ width: "200px", height: "auto", borderRadius: "4px" }}
               />

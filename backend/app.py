@@ -21,7 +21,7 @@ FRONTEND_ORIGIN = "http://localhost:3000"
 
 # --- APP SETUP ---
 app = Flask(__name__)
-CORS(app, resources={r"/predict/*": {"origins": FRONTEND_ORIGIN}}, supports_credentials=True)
+CORS(app, resources={r"/predict/*": {"origins": FRONTEND_ORIGIN}, r"/api/v1/*": {"origins": FRONTEND_ORIGIN}}, supports_credentials=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -263,6 +263,51 @@ def predict_lung():
     finally:
         if os.path.exists(fpath): os.remove(fpath)
 
+from flask import session
+
+# --- USER AUTH ROUTES ---
+
+@app.route("/api/v1/user/me", methods=["GET"])
+def get_user():
+    user = session.get("user")
+    if user:
+        return jsonify(user=user), 200
+    else:
+        return jsonify(error="Not logged in"), 401
+
+@app.route("/api/v1/user/register", methods=["POST"])
+def register():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+    # Dummy registration logic for demonstration
+    if email and password:
+        # In real app, save user to database here
+        return jsonify(message="Registration successful"), 201
+    else:
+        return jsonify(error="Missing email or password"), 400
+
+@app.route("/api/v1/user/login", methods=["POST"])
+def login():
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+    # Dummy authentication logic for demonstration
+    # if email == "admin@example.com" and password == "password":
+    #     session["user"] = {"email": email}
+    #     return jsonify(message="Login successful", user={"email": email}), 200
+    # else:
+    #     return jsonify(error="Invalid credentials"), 401
+    # Commented out login check to allow login without validation
+    session["user"] = {"email": email}
+    return jsonify(message="Login successful", user={"email": email}), 200
+
+@app.route("/api/v1/user/logout", methods=["POST"])
+def logout():
+    session.pop("user", None)
+    return jsonify(message="Logged out"), 200
+
 # --- MAIN ---
 if __name__ == "__main__":
+    app.secret_key = "supersecretkey"  # Needed for session management
     app.run(debug=True)

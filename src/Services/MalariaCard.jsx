@@ -12,6 +12,7 @@ import {
   ListItem,
   Box,
 } from "@mui/material";
+import malariaImage from "../assets/images/malaria.jpg"; // ✅ Import the image
 
 const MalariaCard = () => {
   const fileRef = useRef(null);
@@ -77,7 +78,7 @@ const MalariaCard = () => {
     <Card className="services-card">
       <img
         className="card-image"
-        src="/images/malaria.jpg"
+        src={malariaImage}
         alt="Malaria Prediction"
       />
       <div className="card-content-wrapper">
@@ -177,13 +178,13 @@ const MalariaCard = () => {
                 If you are unable to reach now, take one of the following tablets (At your own risk):
               </Typography>
               <List dense>
-                <ListItem>Chloroquine</ListItem>
-                <ListItem>Artemether-Lumefantrine</ListItem>
+                <ListItem>Artemether-Lumefantrine (Coartem)</ListItem>
+                <ListItem>Atovaquone-Proguanil (Malarone)</ListItem>
               </List>
             </Box>
             <Box display="flex" flexDirection="column" alignItems="center">
               <img
-                src="/images/malaria.jpg"
+                src={malariaImage}
                 alt="Malaria"
                 style={{ width: "200px", height: "auto", borderRadius: "4px" }}
               />

@@ -17,7 +17,11 @@ const HospitalMap = () => {
   };
 
   useEffect(() => {
-    init();
+    // Delay init to ensure DOM element is rendered
+    const timer = setTimeout(() => {
+      init();
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const init = async () => {
@@ -34,7 +38,7 @@ const HospitalMap = () => {
   };
 
   const initializeMap = (coords) => {
-    const map = L.map(mapRef.current).setView(coords, 13);
+    const map = L.map('map').setView(coords, 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(map);

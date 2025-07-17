@@ -14,6 +14,9 @@ import {
   Box,
 } from "@mui/material";
 
+// ✅ Import local image correctly
+import lungImage from "../assets/images/lung.jpg";
+
 const LungCancerCard = () => {
   const fileRef = useRef(null);
   const [message, setMessage] = useState("");
@@ -79,9 +82,10 @@ const LungCancerCard = () => {
 
   return (
     <Card className="services-card">
+      {/* ✅ Use imported image */}
       <img
         className="card-image"
-        src="/images/lung.jpg"
+        src={lungImage}
         alt="Lung Cancer Prediction"
       />
       <div className="card-content-wrapper">
@@ -193,8 +197,9 @@ const LungCancerCard = () => {
                 </List>
               </Box>
               <Box display="flex" flexDirection="column" alignItems="center">
+                {/* ✅ Use imported image again */}
                 <img
-                  src="/images/lung.jpg"
+                  src={lungImage}
                   alt="Lung"
                   style={{ width: "200px", height: "auto", borderRadius: "4px" }}
                 />

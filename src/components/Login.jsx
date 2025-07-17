@@ -8,8 +8,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "../styles/Login.css";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-
 const Login = () => {
   const { setIsAuthenticated, setUser } = useContext(Context);
   const navigateTo = useNavigate();
@@ -23,7 +21,7 @@ const Login = () => {
 
   const handleLogin = async (data) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/v1/user/login`, data, {
+      const res = await axios.post("http://localhost:5000/api/v1/user/login", data, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
@@ -35,9 +33,16 @@ const Login = () => {
       }
 
       toast.success(res.data.message);
+      // Save token to localStorage for persistence
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+      }
       setIsAuthenticated(true);
       setUser(res.data.user);
-      navigateTo("/home");
+      // Add a small delay before navigation to ensure state updates
+      setTimeout(() => {
+        navigateTo("/home");
+      }, 100);
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Login failed. Please try again.";
       toast.error(errorMessage);

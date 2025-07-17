@@ -1,8 +1,10 @@
+// main.jsx
 import React, { createContext, StrictMode, useState } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import { createRoot }  from "react-dom/client";
 import App from "./App.jsx";
+  // Import App from index.jsx now
 
+// Create a Context for authentication state
 export const Context = createContext({
   isAuthenticated: false,
   setIsAuthenticated: () => {},
@@ -10,15 +12,14 @@ export const Context = createContext({
   setUser: () => {},
 });
 
+// Context Provider Component
 const AppWrapper = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
   return (
     <Context.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
-      <Router>
-        <App />
-      </Router>
+      <App />
     </Context.Provider>
   );
 };
